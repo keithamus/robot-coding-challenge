@@ -53,6 +53,20 @@ body:after {
     background: grey;
 }
 
+#output {
+    position: absolute;
+    left: 1.5rem;
+    top: 3.5rem;
+    width: 10rem;
+    height: 4.5rem;
+    border: 1px solid black;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+    padding: 0.2rem;
+    resize: none;
+    z-index: 999;
+}
+
 .robot {
     background: url(robot.png) no-repeat;
     position: absolute;

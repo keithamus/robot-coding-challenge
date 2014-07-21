@@ -14,6 +14,16 @@ window.Robot = (function () {
         document.body.appendChild(this.el);
     }
 
+    Robot.outputConsole = document.querySelector('#output');
+    Robot.console = {
+        log: function (message) {
+            Robot.outputConsole.value += '\n' + message;
+        },
+        clear: function () {
+            Robot.outputConsole.value = '';
+        },
+    };
+
     Robot.prototype = {
         constructor: Robot,
 
@@ -31,7 +41,16 @@ window.Robot = (function () {
             if (typeof instructions === 'string') {
                 instructions = instructions.split('');
             }
-            this.placeFlag(this.calculateFinalCoords(instructions));
+            var finalPos = this.calculateFinalCoords(instructions);
+            this.placeFlag(finalPos.coords);
+            Robot.console.log(finalPos.coords.join('') + finalPos.facing);
+            if (finalPos.coords[0] < 0 ||
+                finalPos.coords[0] > 50 ||
+                finalPos.coords[1] < 0 ||
+                finalPos.coords[1] > 50) {
+                Robot.console.log('LOST');
+                this.lost = true;
+            }
             this.runQueue(instructions);
         },
 
@@ -57,7 +76,7 @@ window.Robot = (function () {
                     coords = this.move(facing, coords);
                 }
             }, this);
-            return coords;
+            return { facing: facing, coords: coords };
         },
 
         aboutFace: function aboutFace(facing, turn) {
