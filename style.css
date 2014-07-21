@@ -21,9 +21,9 @@ body:after {
         linear-gradient(to right, transparent 0%,
                                   transparent 97%,
                                   hsla(150, 100%, 50%, 0.4) 97%) top left/4rem 100%,
-        linear-gradient(to bottom, transparent 0%,
+        linear-gradient(to top, transparent 0%,
                                    transparent 97%,
-                                   hsla(150, 100%, 50%, 0.4) 97%) top left/100% 4rem;
+                                   hsla(150, 100%, 50%, 0.4) 97%) bottom left/100% 4rem;
 }
 
 #instructions {
@@ -59,7 +59,7 @@ body:after {
     width: 58px;
     height: 58px;
     margin: 30px;
-    transition: left .5s ease-in-out, top .5s ease-in-out;
+    transition: left .25s linear, bottom .25s linear;
     z-index: 998;
 }
 

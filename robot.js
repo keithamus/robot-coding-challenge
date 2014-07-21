@@ -8,7 +8,7 @@ window.Robot = (function () {
         this.el.id = 'robot' + Math.round(Math.random() * 100);
         this.el.className = 'robot';
         this.el.setAttribute('facing', faces[0]);
-        this.el.style.top = '0';
+        this.el.style.bottom = '0';
         this.el.style.left = '0';
         this.coords = [0, 0];
         document.body.appendChild(this.el);
@@ -42,7 +42,7 @@ window.Robot = (function () {
                 document.body.appendChild(this.flagEl);
             }
             this.flagEl.style.left = (coords[0] * cordMultiplier) + 'rem';
-            this.flagEl.style.top = (coords[1] * cordMultiplier) + 'rem';
+            this.flagEl.style.bottom = (coords[1] * cordMultiplier) + 'rem';
         },
 
         calculateFinalCoords: function calculateFinalCoords(instructions) {
@@ -72,13 +72,13 @@ window.Robot = (function () {
             existingCoords = (existingCoords || [0, 0]).slice();
             switch(direction) {
                 case 'N':
-                    existingCoords[1] -= 1;
+                    existingCoords[1] += 1;
                     break;
                 case 'E':
                     existingCoords[0] += 1;
                     break;
                 case 'S':
-                    existingCoords[1] += 1;
+                    existingCoords[1] -= 1;
                     break;
                 case 'W':
                     existingCoords[0] -= 1;
@@ -98,7 +98,7 @@ window.Robot = (function () {
                 } else if (instruction === 'F') {
                     this.coords = this.move(this.facing, this.coords);
                     this.el.style.left = (this.coords[0] * cordMultiplier) + 'rem';
-                    this.el.style.top = (this.coords[1] * cordMultiplier) + 'rem';
+                    this.el.style.bottom = (this.coords[1] * cordMultiplier) + 'rem';
                 }
                 setTimeout(this.runQueue.bind(this, instructions), this.instructionTime);
                 return true;
