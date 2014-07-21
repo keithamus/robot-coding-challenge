@@ -81,10 +81,12 @@ window.Robot = (function () {
 
         aboutFace: function aboutFace(facing, turn) {
             var newFaceIndex = faces.indexOf(facing) + turn;
-            if (!faces[newFaceIndex]) {
-                newFaceIndex = 0;
+            if (newFaceIndex < 0) {
+                newFaceIndex = faces.length + newFaceIndex;
+            } else if (newFaceIndex > 3) {
+                newFaceIndex = 3 - newFaceIndex;
             }
-            return faces[newFaceIndex];
+            return faces[newFaceIndex] || faces[0];
         },
 
         move: function move(direction, existingCoords) {
