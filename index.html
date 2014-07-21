@@ -5,9 +5,10 @@
     </head>
     <body>
         <form id="instructions">
-            <input type="text" placeholder="COMMAND">
+            <input type="text" placeholder="COMMAND" pattern="(?:L|F|R)+">
             <button>Go</button>
         </form>
-        <div id="robot" class="east"></div>
+        <script src="robot.js"></script>
+        <script src="input.js"></script>
     </body>
 </html>

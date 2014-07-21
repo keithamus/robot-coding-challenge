@@ -37,6 +37,13 @@ body:after {
     width: 8rem;
     height: 1.5rem;
     border: 1px solid black;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+    padding: 0.2rem .5rem;
+}
+
+#instructions input:invalid {
+    border-color: red;
 }
 
 #instructions button {
@@ -46,24 +53,26 @@ body:after {
     background: grey;
 }
 
-#robot {
+.robot {
     background: url(robot.png) no-repeat;
     position: absolute;
-    top: calc(4rem - 35px);
-    left: calc(4rem - 35px);
-    width: 70px;
-    height: 70px;
+    width: 58px;
+    height: 58px;
+    margin: 30px;
+    transition: left .5s ease-in-out, top .5s ease-in-out;
+    z-index: 998;
 }
 
-#robot.north {
-    background-position: -85px -160px;
+.robot[facing="N"] {
+    background-position: -89px -7px;
 }
-#robot.east {
-    background-position: -160px;
+.robot[facing="E"] {
+    background-position: -172px -90px;
 }
-#robot.south {
-    background-position: -160px;
+.robot[facing="S"] {
+    background-position: -91px -172px;
 }
-#robot.west {
-    background-position: 0;
+.robot[facing="W"] {
+    background-position: -6px;
+}
 }
