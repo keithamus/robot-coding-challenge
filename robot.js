@@ -12,12 +12,14 @@ window.Robot = (function () {
         this.el.style.left = '0';
         this.coords = [0, 0];
         document.body.appendChild(this.el);
+        Robot.console.clear();
     }
 
     Robot.outputConsole = document.querySelector('#output');
     Robot.console = {
         log: function (message) {
-            Robot.outputConsole.value += '\n' + message;
+            Robot.outputConsole.value += message;
+            console.log(message);
         },
         clear: function () {
             Robot.outputConsole.value = '';
@@ -43,7 +45,7 @@ window.Robot = (function () {
             }
             var finalPos = this.calculateFinalCoords(instructions);
             this.placeFlag(finalPos.coords);
-            Robot.console.log(finalPos.coords.join('') + finalPos.facing);
+            Robot.console.log('\n' + finalPos.coords.join(' ') + ' ' + finalPos.facing);
             if (finalPos.coords[0] < 0 ||
                 finalPos.coords[0] > 50 ||
                 finalPos.coords[1] < 0 ||
