@@ -41,20 +41,34 @@ window.Robot = (function () {
 
         command: function robotCommand(instructions) {
             if (typeof instructions === 'string') {
-                instructions = instructions.split('');
+                var pos = instructions.match(/(\d\d?) (\d\d?)(?: ([NESW]))?/);
+                if (pos) {
+                    this.el.style.left = (+pos[1] * cordMultiplier) + 'rem';
+                    this.el.style.bottom = (+pos[2] * cordMultiplier) + 'rem';
+                    this.coords = [+pos[1], +pos[2]];
+                    this.facing = pos[3];
+                    this.logPosition(this.facing, this.coords);
+                    return;
+                } else {
+                    instructions = instructions.split('');
+                }
             }
             var finalPos = this.calculateFinalCoords(instructions);
+            this.logPosition(finalPos.facing, finalPos.coords);
             this.placeFlag(finalPos.coords);
-            Robot.console.log(finalPos.coords.join(' ') + ' ' + finalPos.facing);
-            if (finalPos.coords[0] < 0 ||
-                finalPos.coords[0] > 50 ||
-                finalPos.coords[1] < 0 ||
-                finalPos.coords[1] > 50) {
+            this.runQueue(instructions);
+        },
+
+        logPosition: function logPosition(facing, coords) {
+            Robot.console.log(coords.join(' ') + ' ' + facing);
+            if (coords[0] < 0 ||
+                coords[0] > 50 ||
+                coords[1] < 0 ||
+                coords[1] > 50) {
                 Robot.console.log('LOST');
                 this.lost = true;
             }
             Robot.console.log('\n');
-            this.runQueue(instructions);
         },
 
         placeFlag: function placeFlag(coords) {

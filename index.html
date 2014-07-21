@@ -5,7 +5,7 @@
     </head>
     <body>
         <form id="instructions">
-            <input type="text" placeholder="COMMAND" pattern="(?:L|F|R)+">
+            <input type="text" placeholder="COMMAND" pattern="([LFR]+|\d\d? \d\d?( [NESW])?)">
             <button>Go</button>
         </form>
         <textarea id="output"></textarea>
