@@ -45,7 +45,7 @@ window.Robot = (function () {
             }
             var finalPos = this.calculateFinalCoords(instructions);
             this.placeFlag(finalPos.coords);
-            Robot.console.log('\n' + finalPos.coords.join(' ') + ' ' + finalPos.facing);
+            Robot.console.log(finalPos.coords.join(' ') + ' ' + finalPos.facing);
             if (finalPos.coords[0] < 0 ||
                 finalPos.coords[0] > 50 ||
                 finalPos.coords[1] < 0 ||
@@ -53,6 +53,7 @@ window.Robot = (function () {
                 Robot.console.log('LOST');
                 this.lost = true;
             }
+            Robot.console.log('\n');
             this.runQueue(instructions);
         },
 
