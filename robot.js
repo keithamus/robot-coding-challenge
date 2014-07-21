@@ -17,6 +17,8 @@ window.Robot = (function () {
     Robot.prototype = {
         constructor: Robot,
 
+        instructionTime: 250,
+
         get facing() {
             return this.el.getAttribute('facing');
         },
@@ -29,12 +31,23 @@ window.Robot = (function () {
             if (typeof instructions === 'string') {
                 instructions = instructions.split('');
             }
-            this.placeRobot(instructions);
+            this.placeFlag(this.calculateFinalCoords(instructions));
+            this.runQueue(instructions);
         },
 
-        placeRobot: function placeRobot(instructions) {
+        placeFlag: function placeFlag(coords) {
+            if (!this.flagEl) {
+                this.flagEl = document.createElement('div');
+                this.flagEl.className = 'flag';
+                document.body.appendChild(this.flagEl);
+            }
+            this.flagEl.style.left = (coords[0] * cordMultiplier) + 'rem';
+            this.flagEl.style.top = (coords[1] * cordMultiplier) + 'rem';
+        },
+
+        calculateFinalCoords: function calculateFinalCoords(instructions) {
             var facing = this.facing,
-                coords = this.coords || [0, 0];
+                coords = this.coords;
             instructions.forEach(function (instruction) {
                 if (instruction === 'L') {
                     facing = this.aboutFace(facing, -1);
@@ -44,10 +57,7 @@ window.Robot = (function () {
                     coords = this.move(facing, coords);
                 }
             }, this);
-            this.facing = facing;
-            this.coords = coords;
-            this.el.style.left = (coords[0] * cordMultiplier) + 'rem';
-            this.el.style.top = (coords[1] * cordMultiplier) + 'rem';
+            return coords;
         },
 
         aboutFace: function aboutFace(facing, turn) {
@@ -75,7 +85,26 @@ window.Robot = (function () {
                     break;
             }
             return existingCoords;
-        }
+        },
+
+        runQueue: function runQueue(instructions) {
+            if (instructions.length) {
+                var instruction = instructions.shift();
+                console.debug('Running command ', instruction);
+                if (instruction === 'L') {
+                    this.facing = this.aboutFace(this.facing, -1);
+                } else if (instruction === 'R') {
+                    this.facing = this.aboutFace(this.facing, 1);
+                } else if (instruction === 'F') {
+                    this.coords = this.move(this.facing, this.coords);
+                    this.el.style.left = (this.coords[0] * cordMultiplier) + 'rem';
+                    this.el.style.top = (this.coords[1] * cordMultiplier) + 'rem';
+                }
+                setTimeout(this.runQueue.bind(this, instructions), this.instructionTime);
+                return true;
+            }
+            return false;
+        },
 
     };
 

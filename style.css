@@ -75,4 +75,12 @@ body:after {
 .robot[facing="W"] {
     background-position: -6px;
 }
+
+.flag {
+    position: absolute;
+    margin: 2.5rem;
+    background: url(flag.png) no-repeat;
+    width: 40px;
+    height: 40px;
+    z-index: 997;
 }
