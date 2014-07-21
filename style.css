@@ -1,0 +1,69 @@
+html, body {
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background: url(ground.png);
+}
+
+body:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background:
+        linear-gradient(to right, transparent 0%,
+                                  transparent 97%,
+                                  hsla(150, 100%, 50%, 0.4) 97%) top left/4rem 100%,
+        linear-gradient(to bottom, transparent 0%,
+                                   transparent 97%,
+                                   hsla(150, 100%, 50%, 0.4) 97%) top left/100% 4rem;
+}
+
+#instructions {
+    position: absolute;
+    top: .5rem;
+    left: 1.5rem;
+    z-index: 999;
+}
+
+#instructions input {
+    width: 8rem;
+    height: 1.5rem;
+    border: 1px solid black;
+}
+
+#instructions button {
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid black;
+    background: grey;
+}
+
+#robot {
+    background: url(robot.png) no-repeat;
+    position: absolute;
+    top: calc(4rem - 35px);
+    left: calc(4rem - 35px);
+    width: 70px;
+    height: 70px;
+}
+
+#robot.north {
+    background-position: -85px -160px;
+}
+#robot.east {
+    background-position: -160px;
+}
+#robot.south {
+    background-position: -160px;
+}
+#robot.west {
+    background-position: 0;
+}
